@@ -153,6 +153,8 @@ GROUP BY
 ORDER BY
   2 DESC,
   1 ASC
+LIMIT
+  10
     """
 
 def query_eight():
@@ -163,12 +165,15 @@ SELECT
   COUNT(id) AS num_users
 FROM
   `bigquery-public-data.stackoverflow.badges`
-WHERE class = 1
+WHERE
+  class = 1
 GROUP BY
   1
 ORDER BY
   2 DESC,
   1 ASC
+LIMIT
+  10
     """
 
 def query_nine():
@@ -325,7 +330,7 @@ SELECT
   u.id,
   u.display_name,
   u.reputation,
-  COUNT(DISTINCT t.id) AS num_answers
+  COUNT(t.id) AS num_answers
 FROM
   `bigquery-public-data.stackoverflow.users` AS u
 LEFT JOIN
@@ -333,6 +338,7 @@ LEFT JOIN
 ON
   u.id = t.owner_user_id
 GROUP BY 1, 2, 3
+HAVING COUNT(t.id) > 50
 ORDER BY 4 DESC
 LIMIT 20
 
