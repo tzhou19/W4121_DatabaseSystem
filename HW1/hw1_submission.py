@@ -271,14 +271,16 @@ def query_thirteen():
     """Query thirteen"""
     return """
 SELECT
-  EXTRACT(creation_date AS YEAR) AS year,
+  EXTRACT(YEAR
+  FROM
+    creation_date) AS year,
   COUNT(*) AS num_questions,
   ROUND(SUM(CASE
         WHEN answer_count > 0 THEN 1
       ELSE
       0
     END
-      )/COUNT(*) * 100,2) AS percentage_answered
+      )/COUNT(*)*100,2) AS percentage_answerd
 FROM
   `bigquery-public-data.stackoverflow.posts_questions`
 GROUP BY
