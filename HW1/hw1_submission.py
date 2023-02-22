@@ -148,6 +148,10 @@ FROM
   `bigquery-public-data.stackoverflow.posts_questions`
 CROSS JOIN
   UNNEST(SPLIT(tags, '|')) AS tag
+WHERE
+  EXTRACT(year
+  FROM
+    creation_date) = 2021
 GROUP BY
   1
 ORDER BY
